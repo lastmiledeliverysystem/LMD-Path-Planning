@@ -3,6 +3,10 @@ import math
 from numpy import ones,vstack
 from numpy.linalg import lstsq
 
+nodes={} 
+#Incidence Matrix
+incidenceMatrix=[]
+
 graphFile = open('graphData', 'rb') 
 nodes = pickle.load(graphFile)
 graphFile.close()
@@ -13,6 +17,13 @@ edgeEqs={}
 for keys in nodes: 
     print("-------------- Graph Nodes --------------")
     print(keys, '=>', nodes[keys]) 
+
+def edgeEq(parent,child):
+        points = [parent,child]
+        x_coords, y_coords = zip(*points)
+        A = vstack([x_coords,ones(len(x_coords))]).T
+        m, c = lstsq(A, y_coords)[0]
+        return m,c
 
 
 def calcEdgeEq(parent, child):
