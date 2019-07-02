@@ -1,5 +1,7 @@
 import pickle 
 import math
+from numpy import ones,vstack
+from numpy.linalg import lstsq
 
 nodes={} 
 #Incidence Matrix
@@ -10,6 +12,13 @@ nodes = pickle.load(graphFile)
 for keys in nodes: 
     print(keys, '=>', nodes[keys]) 
 graphFile.close() 
+
+def edgeEq(parent,child):
+        points = [parent,child]
+        x_coords, y_coords = zip(*points)
+        A = vstack([x_coords,ones(len(x_coords))]).T
+        m, c = lstsq(A, y_coords)[0]
+        return m,c
 
 
 def calcDistance(parent,child):
@@ -36,18 +45,20 @@ for key in nodes:
         childPostion=child['postion']
 # Calculate the distance to that child
         distance= calcDistance(parentPostion,childPostion)
+        m,c =edgeEq(parentPostion,childPostion)
+        print(m,c)
 # append that distance in the parent
         parent['distances'][childName]=distance
         print(parent['distances'])
 
 
-for key in nodes:
-    parent= nodes[key]
-    children= parent['children']
-    for childName in children:
-        edge= parent['name']+'->'+childName
-    incidenceMatrix.append(edge)
-print(incidenceMatrix)
+# for key in nodes:
+#     parent= nodes[key]
+#     children= parent['children']
+#     for childName in children:
+#         edge= parent['name']+'->'+childName
+#     incidenceMatrix.append(edge)
+# print(incidenceMatrix)
 
 # graphFile = open('graphData', 'wb') 
 # # source, destination 
