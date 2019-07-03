@@ -1,7 +1,7 @@
 import pickle 
 nodes={} #{ "N2":Node}
 nodeCounter = 1
-graphFile = open('graphData2.txt', 'rb') 
+graphFile = open('graphData', 'rb') 
 nodes = pickle.load(graphFile) 
 nodeCounter = len(nodes.keys()) + 1
 print(nodeCounter)
@@ -50,7 +50,7 @@ while True:
     nodes[nodeName]=nodeData
 
 # Its important to use binary mode 
-graphFile = open('graphData2.txt', 'wb') 
+graphFile = open('graphData', 'wb') 
 # source, destination 
 # print(nodes['N2'])
 pickle.dump(nodes, graphFile)                      

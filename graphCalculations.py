@@ -4,15 +4,13 @@ from numpy import ones,vstack
 from numpy.linalg import lstsq
 
 nodes={} 
+edgeEqs={}
 #Incidence Matrix
-incidenceMatrix=[]
 
 graphFile = open('graphData', 'rb') 
 nodes = pickle.load(graphFile)
 graphFile.close()
 
-nodes={}
-edgeEqs={}
 
 for keys in nodes: 
     print("-------------- Graph Nodes --------------")
@@ -40,7 +38,7 @@ def calcDistance(parent,child):
     # print(parentX,parentY)
     # print(childX,childY)
     distance= math.sqrt((parentX - childX)** 2 + (parentY - childY)** 2)
-    # print(distance)
+    print(distance)
     return distance
 
 def addNewNode(x,y,edgeEqs):
@@ -65,27 +63,27 @@ for nodeName in nodes:
     # print(children)
     for childName in children:
         child= nodes[childName]
-        # print(child)
+        print(child)
         childPostion=child['postion']
 
         # Distance Calulations #
         distance= calcDistance(parentPostion, childPostion)
         parent['distances'][childName]=distance
-        # print(parent['distances'])
+        print(parent['distances'])
 
         # Edge Calculations #
-        edgeName= parent['name']+'->'+childName
+        #edgeName= parent['name']+'->'+childName
         
         # Edge Equation Calculation #
-        m,c = calcEdgeEq(parentPostion, childPostion)
+        #m,c = calcEdgeEq(parentPostion, childPostion)
         # print("m",m,"c",c)
-        edgeEqs[edgeName]=(m,c)
+        #edgeEqs[edgeName]=(m,c)
 
 
-for key in edgeEqs:
-    print(key, '=>', edgeEqs[key]) 
+# for key in edgeEqs:
+#     print(key, '=>', edgeEqs[key]) 
 
-print("The new node is on ", addNewNode(2.5, 2.5, edgeEqs))
+#print("The new node is on ", addNewNode(2.5, 2.5, edgeEqs))
 
 graphFile = open('graphData', 'wb') 
 graphEquations= open('graphEqs','wb')
