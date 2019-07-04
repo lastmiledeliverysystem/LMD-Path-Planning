@@ -69,19 +69,19 @@ for nodeName in nodes:
         # Distance Calulations #
         distance= calcDistance(parentPostion, childPostion)
         parent['distances'][childName]=distance
-        print(parent['distances'])
+        # print(parent['distances'])
 
         # Edge Calculations #
-        #edgeName= parent['name']+'->'+childName
+        edgeName= parent['name']+'->'+childName
         
         # Edge Equation Calculation #
-        #m,c = calcEdgeEq(parentPostion, childPostion)
+        m,c = calcEdgeEq(parentPostion, childPostion)
         # print("m",m,"c",c)
-        #edgeEqs[edgeName]=(m,c)
+        edgeEqs[edgeName]=(m,c)
 
 
-# for key in edgeEqs:
-#     print(key, '=>', edgeEqs[key]) 
+for key in edgeEqs:
+    print(key, '=>', edgeEqs[key]) 
 
 #print("The new node is on ", addNewNode(2.5, 2.5, edgeEqs))
 

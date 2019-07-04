@@ -29,9 +29,9 @@ def calcHeuristic(node, goal):
     return math.sqrt((x1 - x2)** 2 + (y1 - y2)** 2)
 
 while len(openList):
+
     currentNode = openList[0]
     currentIndex = 0
-
     print("----------------------------------")
     print("Current Node:", currentNode['name'])
 
