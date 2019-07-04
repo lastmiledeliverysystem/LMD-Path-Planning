@@ -21,30 +21,41 @@ while True:
     nodePostion=(x, y)
     # print(nodePostion)
     directions={}
+    nodeParent= []
+    nodeParent = list(map(str, input("Enter Node's Parents:").split())) 
     nodeChildren= []
     nodeChildren = list(map(str, input("Enter Node's Children:").split())) 
-    print("List of students: ", nodeChildren)
-    print(len(nodeChildren))
     nodeDirections= list(map(str, input("Enter the Direction for each child(right, left, follow):").split()))
     print(nodeDirections)
     for i in range (0,len(nodeChildren)):
+        if nodeDirections[i].upper() == "R":
+            nodeDirections[i] = "right"
+        if nodeDirections[i].upper() == "L":
+            nodeDirections[i] = "left"
+        if nodeDirections[i].upper() == "F":
+            nodeDirections[i] = "follow"
         directions[nodeChildren[i]]=nodeDirections[i]
     print(directions)
-    print("Decision Node?(Y/N):")
-    Decision=input()
-    if Decision.upper() == 'Y':
-        nodeDecision= True
-    else:
-        nodeDecision= False
-    #print(nodeDecision)
+    nodeDecision = {}
+    decisionList = []
+    decisionList = list(map(str, input("Enter Node's Decision:").split()))
+    print("node children",nodeChildren)
+    for i in range (0,len(decisionList)):
+        if decisionList[i].upper() == 'Y':
+            decisionList[i]= True
+        else:
+            decisionList[i]= False
+        nodeDecision[nodeChildren[i]]=decisionList[i]
+        #print(nodeDecision)
 
     nodeData={
     "name":nodeName,
     "postion":nodePostion,
+    "parents": nodeParent,
     "children":nodeChildren,
     'distances':{},
     "directions":directions,
-    "decision":nodeDecision
+    "decision":nodeDecision,
     }
     # nodeName= "N" + str(nodeCounter)
     nodes[nodeName]=nodeData
