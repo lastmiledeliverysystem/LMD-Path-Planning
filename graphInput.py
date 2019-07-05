@@ -26,7 +26,7 @@ while True:
     nodeChildren= []
     nodeChildren = list(map(str, input("Enter Node's Children:").split())) 
     nodeDirections= list(map(str, input("Enter the Direction for each child(right, left, follow):").split()))
-    print(nodeDirections)
+    #print(nodeDirections)
     for i in range (0,len(nodeChildren)):
         if nodeDirections[i].upper() == "R":
             nodeDirections[i] = "right"
@@ -35,11 +35,11 @@ while True:
         if nodeDirections[i].upper() == "F":
             nodeDirections[i] = "follow"
         directions[nodeChildren[i]]=nodeDirections[i]
-    print(directions)
+    #print(directions)
     nodeDecision = {}
     decisionList = []
     decisionList = list(map(str, input("Enter Node's Decision:").split()))
-    print("node children",nodeChildren)
+    #print("node children",nodeChildren)
     for i in range (0,len(decisionList)):
         if decisionList[i].upper() == 'Y':
             decisionList[i]= True
