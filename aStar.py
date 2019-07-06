@@ -3,6 +3,12 @@ import pickle
 import math
 
 
+def calcHeuristic(node, goal):
+    (x1, y1) = node
+    (x2, y2) = goal
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+
 def aStar(start, goal, graph):
     openList = []
     closedList = []
@@ -18,21 +24,12 @@ def aStar(start, goal, graph):
 
     openList.append(start)
 
-    def calcHeuristic(node, goal):
-        (x1, y1) = node
-        (x2, y2) = goal
-        return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-
     while len(openList):
         currentNode = openList[0]
         currentIndex = 0
 
-while len(openList):
-
-    currentNode = openList[0]
-    currentIndex = 0
-    print("----------------------------------")
-    print("Current Node:", currentNode['name'])
+        print("----------------------------------")
+        print("Current Node:", currentNode['name'])
 
         for index, node in enumerate(openList):
             print("Openning Node", node['name'], "from OpenList")
@@ -60,14 +57,18 @@ while len(openList):
                 continue
             #g, h, f
             print("Cost and Heuristic of ", child, ": ")
-            h = calcHeuristic(graph[child]['postion'], goal['postion'])
-            print("h= ", h)
-            g = currentNode['cost'] + currentNode['distances'][child]
-            print("g= ", g)
-            graph[child]['cost'] = g
-            f = g + h
-            graph[child]['totalCost'] = f
-            print("f= ", f)
+            if child == 'None':
+                graph[child]['totalCost']= 100000
+                graph[child]['cost'] =100000
+            else:
+                h = calcHeuristic(graph[child]['position'], goal['position'])
+                print("h= ", h)
+                g = currentNode['cost'] + currentNode['distances'][child]
+                print("g= ", g)
+                graph[child]['cost'] = g
+                f = g + h
+                graph[child]['totalCost'] = f
+                print("f= ", f)
 
             for openNode in openList:
                 if child == openNode['name'] and openNode['cost'] < graph[child]['cost']:
@@ -79,7 +80,7 @@ while len(openList):
                     print("child", child, "is already in the list with less cost")
                     closedList.pop((closedList.index(graph[child])))
                     continue
-
+                    
             openList.append(graph[child])
             # print("After 2: open", openList,"closed",closedList)
     for node in closedList:
