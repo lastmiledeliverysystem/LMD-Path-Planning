@@ -1,6 +1,6 @@
 import pickle
 from aStar import aStar
-from graphCalculations import addNewNode, generateStartPositions, generateGoalPositions
+from graphCalculations import addNewNode, generateStartPositions, generateGoalPositions, checkNode
 
 graphFile = open('graphData', 'rb')
 graph = pickle.load(graphFile)
@@ -10,28 +10,49 @@ edgeEqFile = open('graphEqs', 'rb')
 edgeEq = pickle.load(edgeEqFile)
 edgeEqFile.close()
 
+
+startList = []
+goalList = []
 # for keys in edgeEq:
 #     print(keys, "=>", edgeEq[keys])
 
 startPosition = list(map(float, input("Enter start position:").split()))
 goalPosition = list(map(float, input("Enter Goal position:").split()))
 
-startEdge= addNewNode(startPosition[0], startPosition[1], graph, edgeEq)
-print("start edge", startEdge)
-startList = generateStartPositions(startEdge, graph)
-print(startList)
+startNode = checkNode(startPosition[0], startPosition[1], graph)
+if startNode == -1:
+    startEdge = addNewNode(startPosition[0], startPosition[1], graph, edgeEq)
+    print("start edge", startEdge)
+    startList = generateStartPositions(startEdge, graph)
+else:
+    startList.append(startNode)
 
-goalEdge = addNewNode(goalPosition[0], goalPosition[1],graph, edgeEq)
-print("goal edge", goalEdge)
-goalList = generateGoalPositions(goalEdge, graph)
-print(goalList)
-path= []
+goalNode = checkNode(goalPosition[0], goalPosition[1], graph)
+if goalNode == -1:
+    goalEdge = addNewNode(goalPosition[0], goalPosition[1], graph, edgeEq)
+    print("goal edge", goalEdge)
+    goalList = generateGoalPositions(goalEdge, graph)
+else:
+    goalList.append(goalNode)
+
+
+paths = []
 for i in range(0, len(startList)):
     for j in range(0, len(goalList)):
-        path.append(aStar(startList[i], goalList[j], graph))
+        tempPath = aStar(startList[i], goalList[j], graph)
+        if tempPath != '7eta sad':
+            paths.append(tempPath)
 
-for i in range(0,len( path)):
-         print("Path #",i,"is:",path[i])
-minList = min((x) for x in path)
+
+print("Start", startList)
+print("Goal", goalList)
+
+for i in range(0, len(paths)):
+    print("Path #", i, "is:", paths[i])
+
+listLengths = []
+for path in paths:
+    listLengths.append(len(path))
+shortestPath = paths[listLengths.index(min(listLengths))]
 print("----------------------------")
-print("The shortest path:", minList)
+print("The shortest path:", shortestPath)

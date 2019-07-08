@@ -6,7 +6,9 @@ nodes = pickle.load(graphFile)
 nodeCounter = len(nodes.keys()) + 1
 print(nodeCounter)
 for keys in nodes:
-    print(keys, "=>", nodes[keys]['position'])
+    if nodes[keys]['name'] == 'None':
+        continue
+    print(keys, "=>", nodes[keys]['parents'])
 graphFile.close()
 
 directions = {}
@@ -17,9 +19,8 @@ while True:
     if nodeName == 'q':
         break
     print("Enter the postion (x, y): ")
-    x, y = map(int, input().split())
-    nodePosition = (x, y)
-    # print(nodePosition)
+    x, y = map(float, input().split())
+    nodePosition = [x, y]    # print(nodePosition)
     directions = {}
     nodeParent = []
     nodeParent = list(map(str, input("Enter Node's Parents:").split()))

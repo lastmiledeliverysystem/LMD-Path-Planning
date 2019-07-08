@@ -30,6 +30,21 @@ def calcDistance(parent, child):
     return distance
 
 
+def checkNode(x, y, nodes):
+    threshold = 0.05
+    for key in nodes:
+        if nodes[key]['name'] == "None":
+            continue
+        nodePosition = nodes[key]['position']
+        nodePosition[0] = round(nodePosition[0], 2)
+        nodePosition[1] = round(nodePosition[1], 2)
+        distance = calcDistance((x, y), nodePosition)
+        if distance <= threshold:
+            print(nodes[key]['name'])
+            return nodes[key]['name']
+    return -1
+
+
 def addNewNode(x, y, nodes, edgeEqs):
     newPoint = [x, y]
     edges = []
@@ -40,20 +55,24 @@ def addNewNode(x, y, nodes, edgeEqs):
         eq = edgeEqs[key]
         res = eq[0] * x + eq[1] - y
         res = round(res, 1)
-        print(key, "=>", res)
+        # print(key, "=>", res)
         if (abs(res) <= .5):
             edges.append((key, res))
     for i in range(0, len(edges)):
         edge1 = edges[i][0].split('->')[0]  # start edge
         edge2 = edges[i][0].split('->')[1]  # end edge
-        partDistance1 = round(calcDistance(nodes[edge1]['position'], newPoint),1)
-        partDistance2 = round(calcDistance(nodes[edge2]['position'], newPoint),1)
-        totalDistance = round(calcDistance(nodes[edge1]['position'], nodes[edge2]['position']), 1)
-        print("part1", partDistance1, "part2", partDistance2, "total", totalDistance)
-        if partDistance1 + partDistance2 <= totalDistance:
+        partDistance1 = round(calcDistance(
+            nodes[edge1]['position'], newPoint), 1)
+        partDistance2 = round(calcDistance(
+            nodes[edge2]['position'], newPoint), 1)
+        totalDistance = round(calcDistance(
+            nodes[edge1]['position'], nodes[edge2]['position']), 1)
+        print("part1", partDistance1, "part2",
+              partDistance2, "total", totalDistance)
+        if round(partDistance1 + partDistance2, 1) <= totalDistance:
             # startEdges.append(edge1)
             # goalEdges.append(edge2)
-            edgeEq= edge1+ "->" +edge2
+            edgeEq = edge1 + "->" + edge2
             print("edge", edge1, edge2)
             print("located")
         # print(edge)
@@ -62,7 +81,7 @@ def addNewNode(x, y, nodes, edgeEqs):
 
 
 def generateStartPositions(startEdge, nodes):
-    print("startedge ingenerate",startEdge)
+    print("startedge ingenerate", startEdge)
     startEdge = startEdge.split("->")
     # for i in range(0, len(startEdge)):
     parentNode = startEdge[0]
@@ -71,7 +90,7 @@ def generateStartPositions(startEdge, nodes):
 
 
 def generateGoalPositions(goalEdge, nodes):
-    print("goaledge ingenerate",goalEdge)
+    print("goaledge ingenerate", goalEdge)
     goalEdge = goalEdge.split("->")
     # for i in range(0,len(goalEdge)):
     childNode = goalEdge[1]
