@@ -67,8 +67,8 @@ def addNewNode(x, y, nodes, edgeEqs):
             nodes[edge2]['position'], newPoint), 1)
         totalDistance = round(calcDistance(
             nodes[edge1]['position'], nodes[edge2]['position']), 1)
-        print("part1", partDistance1, "part2",
-              partDistance2, "total", totalDistance)
+        # print("part1", partDistance1, "part2",
+            #   partDistance2, "total", totalDistance)
         if round(partDistance1 + partDistance2, 1) <= totalDistance:
             # startEdges.append(edge1)
             # goalEdges.append(edge2)
@@ -76,7 +76,7 @@ def addNewNode(x, y, nodes, edgeEqs):
             print("edge", edge1, edge2)
             print("located")
         # print(edge)
-    print("edges in add new node", edges)
+    # print("edges in add new node", edges)
     return edgeEq
 
 

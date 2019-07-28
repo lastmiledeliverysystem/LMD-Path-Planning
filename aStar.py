@@ -83,14 +83,14 @@ def aStar(start, goal, graph):
         if currentNode['name'] == ' None':
             continue
         children = currentNode['children']
-        print("Children of", currentNode['name'], ":", children)
+        # print("Children of", currentNode['name'], ":", children)
         for child in children:
             print("Testing Child", child)
             if child in closedList:
                 print("child", child, "is in  closed list, Move on..")
                 continue
             #g, h, f
-            print("Cost and Heuristic of ", child, ": ")
+            # print("Cost and Heuristic of ", child, ": ")
             if child == 'None':
                 graph[child]['totalCost'] = 100000
                 graph[child]['cost'] = 100000
